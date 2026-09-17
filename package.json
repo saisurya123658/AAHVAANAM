@@ -1,0 +1,21 @@
+{
+  "name": "aahvaanam-luxury-rooms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aahvaanam Luxury Rooms - Hotel & Lodge Booking Platform",
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "build:client": "npm --prefix client run build",
+    "preview": "npm --prefix client run preview",
+    "postinstall": "npm --prefix client install",
+    "dev:all": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build:server": "npm --prefix server run build",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
