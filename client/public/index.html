@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aahvaanam | Luxury Rooms in Kurnool</title>
+  <meta name="description" content="Aahvaanam – comfortable AC rooms, Wi-Fi, RO water, lift facility and 24-hour hot water near Kurnool New Bus Stand." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="brand-mark">A</span>
+      <span><strong>Aahvaanam</strong><small>STAY • COMFORT • FEEL AT HOME</small></span>
+    </a>
+    <nav>
+      <a href="#rooms">Rooms</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#location">Location</a>
+      <a class="nav-cta" href="#booking">Book Now</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">KURNOOL • ANDHRA PRADESH</p>
+        <h1>Luxury rooms for a <em>comfortable stay.</em></h1>
+        <p class="lead">Spacious, clean and comfortable rooms for students, professionals, families and travellers.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#booking">Check Availability</a>
+          <a class="btn btn-outline" href="tel:+919640289999">Call 96402 89999</a>
+        </div>
+        <div class="hero-points">
+          <span>❄️ AC Rooms</span><span>📶 Wi-Fi</span><span>💧 RO Water</span><span>♨️ 24 Hr Hot Water</span>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="/assets/aahvaanam-poster.png" alt="Aahvaanam lodge promotional poster" />
+      </div>
+    </section>
+
+    <section class="intro section">
+      <div>
+        <p class="eyebrow">WELCOME TO AAHVAANAM</p>
+        <h2>A place that feels like home.</h2>
+      </div>
+      <p>Whether you're visiting Kurnool for work, study or travel, Aahvaanam is designed around the essentials of a relaxed stay: clean rooms, practical amenities and easy access to the New Bus Stand area.</p>
+    </section>
+
+    <section id="rooms" class="section">
+      <div class="section-heading">
+        <div><p class="eyebrow">ROOMS</p><h2>Choose your stay</h2></div>
+        <span class="section-note">Comfort-first rooms</span>
+      </div>
+      <div class="room-grid">
+        <article class="room-card featured">
+          <div class="room-photo"><span>AC</span><b>Comfort Room</b></div>
+          <div class="room-body">
+            <h3>AC Comfort Room</h3>
+            <p>Air-conditioned room with a clean, comfortable setup for short and extended stays.</p>
+            <ul><li>AC</li><li>Wi-Fi</li><li>Hot water</li></ul>
+            <a href="#booking" class="text-link">Request this room →</a>
+          </div>
+        </article>
+        <article class="room-card">
+          <div class="room-photo bunk"><span>AC</span><b>Shared Stay</b></div>
+          <div class="room-body">
+            <h3>Student / Professional Stay</h3>
+            <p>Practical accommodation for students and working professionals looking for a convenient stay.</p>
+            <ul><li>Wi-Fi</li><li>Lift</li><li>RO water</li></ul>
+            <a href="#booking" class="text-link">Request this room →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="amenities" class="section dark-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">AMENITIES</p><h2>Everything you need.</h2></div>
+      </div>
+      <div class="amenity-grid">
+        <div><span>❄</span><h3>AC Rooms</h3><p>Comfortable air-conditioned rooms.</p></div>
+        <div><span>⌁</span><h3>Wi-Fi</h3><p>Stay connected during your visit.</p></div>
+        <div><span>◌</span><h3>RO Water</h3><p>Filtered drinking water facility.</p></div>
+        <div><span>↕</span><h3>Lift Facility</h3><p>Convenient access to rooms.</p></div>
+        <div><span>♨</span><h3>24 Hr Hot Water</h3><p>Hot water available around the clock.</p></div>
+      </div>
+    </section>
+
+    <section id="booking" class="section booking-section">
+      <div class="booking-copy">
+        <p class="eyebrow">RESERVATION REQUEST</p>
+        <h2>Plan your comfortable stay.</h2>
+        <p>Submit your details and the lodge team can confirm your room. This form creates a booking request; it does not take payment.</p>
+        <div class="callout"><strong>Need help?</strong><br />Call <a href="tel:+919640289999">96402 89999</a></div>
+      </div>
+      <form id="bookingForm" class="booking-form">
+        <div class="form-title"><span>01</span><h3>Guest details</h3></div>
+        <div class="form-grid">
+          <label>Full name *<input name="guestName" required placeholder="Your name" /></label>
+          <label>Phone *<input name="phone" required inputmode="tel" placeholder="+91 98XXXXXXXX" /></label>
+          <label>Email<input name="email" type="email" placeholder="you@example.com" /></label>
+          <label>Room type *<select name="roomType" required><option value="">Select room</option><option>AC Comfort Room</option><option>Student / Professional Stay</option></select></label>
+          <label>Check-in *<input name="checkIn" type="date" required /></label>
+          <label>Check-out *<input name="checkOut" type="date" required /></label>
+          <label>Rooms<input name="rooms" type="number" min="1" max="20" value="1" /></label>
+          <label>Guests<input name="guests" type="number" min="1" max="50" value="1" /></label>
+        </div>
+        <label>Special request<textarea name="specialRequest" rows="3" placeholder="Anything the lodge team should know?"></textarea></label>
+        <button class="btn btn-primary full" type="submit">Send Booking Request</button>
+        <p id="bookingMessage" class="form-message" role="status"></p>
+      </form>
+    </section>
+
+    <section id="location" class="location-section">
+      <div class="location-inner">
+        <div><p class="eyebrow">LOCATION</p><h2>Near Kurnool New Bus Stand.</h2><p>Conveniently positioned for travellers looking for easy access around Kurnool city.</p></div>
+        <a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&query=Kurnool+New+Bus+Stand" target="_blank" rel="noopener">Open in Google Maps ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>Aahvaanam</strong><span>Stay • Comfort • Feel at Home</span></div>
+    <div><a href="tel:+919640289999">96402 89999</a><a href="/admin/login.html">Admin</a></div>
+  </footer>
+  <script src="/app.js"></script>
+</body>
+</html>
