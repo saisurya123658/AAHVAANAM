@@ -1,0 +1,443 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================
+   AAHVAANAM — LUXURY ROOMS
+   Ivory • Charcoal • Champagne Gold
+   ===================================================== */
+
+:root {
+  --primary: #25211d;
+  --primary-light: #403a33;
+  --primary-dark: #171411;
+
+  --gold: #c49a32;
+  --bright-gold: #e0b84d;
+
+  --cream: #f7f3ea;
+  --ivory: #fcfaf5;
+  --white: #ffffff;
+
+  --text: #241f1b;
+  --text-light: #6f675e;
+  --text-muted: #918980;
+
+  --border: #ddd4c6;
+}
+
+/* =====================================================
+   BASE
+   ===================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--text);
+    overflow-x: hidden;
+    font-family: "Inter", sans-serif;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: #ffffff;
+  }
+}
+
+/* =====================================================
+   GOLD TEXT
+   ===================================================== */
+
+.text-gold-gradient {
+  background: linear-gradient(
+    135deg,
+    #e0b84d 0%,
+    #c49a32 50%,
+    #9a741e 100%
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =====================================================
+   GOLD BORDER
+   ===================================================== */
+
+.border-gold-subtle {
+  border-color: rgba(196, 154, 50, 0.35);
+}
+
+/* =====================================================
+   GOLD DIVIDER
+   ===================================================== */
+
+.gold-divider {
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #c49a32,
+    transparent
+  );
+}
+
+/* =====================================================
+   HERO OVERLAY
+   ===================================================== */
+
+/*
+   Use this instead of a heavy red overlay.
+*/
+
+.hero-overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(25, 22, 19, 0.58) 0%,
+      rgba(25, 22, 19, 0.32) 42%,
+      rgba(25, 22, 19, 0.15) 72%,
+      rgba(25, 22, 19, 0.20) 100%
+    );
+}
+
+/* =====================================================
+   HERO TEXT SHADOW
+   ===================================================== */
+
+.hero-title {
+  color: #ffffff;
+
+  text-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.55),
+    0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.hero-subtitle {
+  color: #e0b84d;
+
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.hero-description {
+  color: rgba(255, 255, 255, 0.96);
+
+  text-shadow:
+    0 2px 7px rgba(0, 0, 0, 0.6);
+}
+
+/* =====================================================
+   HERO BOTTOM FADE
+   ===================================================== */
+
+.hero-bottom-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(252, 250, 245, 0.05) 55%,
+    rgba(252, 250, 245, 0.75) 100%
+  );
+}
+
+/* =====================================================
+   NAVBAR
+   ===================================================== */
+
+.navbar-glass {
+  background: rgba(25, 22, 19, 0.82);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* =====================================================
+   BOOKING CARD
+   ===================================================== */
+
+.booking-card {
+  background: rgba(255, 255, 255, 0.97);
+
+  border:
+    1px solid rgba(196, 154, 50, 0.42);
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 25px 65px rgba(36, 31, 27, 0.18);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* =====================================================
+   BOOKING LABEL
+   ===================================================== */
+
+.booking-label {
+  color: #a57a1f;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+}
+
+/* =====================================================
+   BOOKING INPUT
+   ===================================================== */
+
+.booking-input {
+  width: 100%;
+
+  background: #ffffff;
+
+  color: #241f1b;
+
+  border:
+    1px solid #d8cfc2;
+
+  border-radius: 10px;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.booking-input:hover {
+  border-color: #c49a32;
+}
+
+.booking-input:focus {
+  outline: none;
+
+  border-color: #c49a32;
+
+  box-shadow:
+    0 0 0 3px rgba(196, 154, 50, 0.13);
+}
+
+/* =====================================================
+   GOLD BUTTON
+   ===================================================== */
+
+.btn-gold {
+  background:
+    linear-gradient(
+      135deg,
+      #d4aa3d,
+      #b88720
+    );
+
+  color: #201b17;
+
+  border: 1px solid #d4aa3d;
+
+  font-weight: 700;
+
+  box-shadow:
+    0 8px 25px rgba(196, 154, 50, 0.22);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.06);
+
+  box-shadow:
+    0 12px 35px rgba(196, 154, 50, 0.30);
+}
+
+/* =====================================================
+   LUXURY CARD
+   ===================================================== */
+
+.luxury-card {
+  background: #ffffff;
+
+  border:
+    1px solid #e3dbcf;
+
+  box-shadow:
+    0 15px 45px rgba(36, 31, 27, 0.08);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.luxury-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 22px 55px rgba(36, 31, 27, 0.13);
+}
+
+/* =====================================================
+   IMAGE
+   ===================================================== */
+
+.image-zoom {
+  overflow: hidden;
+}
+
+.image-zoom img {
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.image-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* =====================================================
+   LUXURY IMAGE
+   ===================================================== */
+
+.luxury-image {
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+}
+
+.luxury-image:hover {
+  transform: scale(1.04);
+}
+
+/* =====================================================
+   GOLD GLOW
+   ===================================================== */
+
+.gold-glow {
+  box-shadow:
+    0 0 0 1px rgba(196, 154, 50, 0.25),
+    0 12px 40px rgba(196, 154, 50, 0.12);
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+@keyframes luxuryFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes luxuryFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes luxuryFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-luxury-fade-up {
+  animation:
+    luxuryFadeUp 0.8s ease-out both;
+}
+
+.animate-luxury-fade-in {
+  animation:
+    luxuryFadeIn 0.8s ease-out both;
+}
+
+.animate-luxury-float {
+  animation:
+    luxuryFloat 4s ease-in-out infinite;
+}
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f3ea;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c49a32;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9a741e;
+}
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(25, 22, 19, 0.55) 0%,
+        rgba(25, 22, 19, 0.28) 50%,
+        rgba(25, 22, 19, 0.52) 100%
+      );
+  }
+
+  .booking-card {
+    border-radius: 14px;
+
+    box-shadow:
+      0 15px 40px rgba(36, 31, 27, 0.15);
+  }
+}
