@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Aahvaanam</title>
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="side-brand"><span>A</span><div><strong>Aahvaanam</strong><small>ADMIN</small></div></div>
+    <nav><a class="active" href="/admin/">Dashboard</a><a href="/#booking">Public booking form ↗</a></nav>
+    <button id="logout" class="logout">Sign out</button>
+  </aside>
+
+  <main class="dashboard">
+    <header class="dash-head">
+      <div><p class="eyebrow">MANAGEMENT</p><h1>Booking Dashboard</h1><p id="adminEmail" class="muted"></p></div>
+      <button id="refresh" class="refresh">↻ Refresh</button>
+    </header>
+
+    <section class="stats">
+      <div class="stat"><span>Total bookings</span><strong id="total">—</strong></div>
+      <div class="stat"><span>Pending</span><strong id="pending">—</strong></div>
+      <div class="stat"><span>Confirmed</span><strong id="confirmed">—</strong></div>
+      <div class="stat"><span>Today's check-ins</span><strong id="todayCheckins">—</strong></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div><h2>All booking records</h2><p class="muted">Search by reference, guest, phone or email.</p></div>
+        <div class="filters">
+          <input id="search" placeholder="Search…" />
+          <select id="status"><option value="">All statuses</option><option>Pending</option><option>Confirmed</option><option>Checked In</option><option>Checked Out</option><option>Cancelled</option></select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Reference</th><th>Guest</th><th>Stay</th><th>Room</th><th>Guests</th><th>Contact</th><th>Status</th><th>Created</th><th></th></tr></thead>
+          <tbody id="bookingRows"><tr><td colspan="9" class="empty">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>
