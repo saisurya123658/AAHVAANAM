@@ -19,6 +19,7 @@ import {
   Building
 } from 'lucide-react';
 import { useSettings } from '../../hooks/useSettings';
+import { useUserAuth } from '../../hooks/useUserAuth';
 
 const guestFormSchema = z.object({
   guestName: z.string().min(2, 'Full name must be at least 2 characters'),
@@ -33,6 +34,7 @@ export const BookingPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { settings } = useSettings();
+  const { user, isAuthenticated } = useUserAuth();
 
   const todayStr = new Date().toISOString().slice(0, 10);
   const tomorrowStr = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
@@ -53,14 +55,33 @@ export const BookingPage: React.FC = () => {
   const [availableRooms, setAvailableRooms] = useState<Room[]>([]);
   const [unavailableRooms, setUnavailableRooms] = useState<Array<{ room: Room; conflictBooking: any }>>([]);
 
-  // React Hook Form for guest details
+  // React Hook Form for guest details with user prefilling
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<GuestFormData>({
-    resolver: zodResolver(guestFormSchema)
+    resolver: zodResolver(guestFormSchema),
+    defaultValues: {
+      guestName: user?.name || '',
+      email: user?.email || '',
+      phone: user?.phone || '',
+      specialRequest: ''
+    }
   });
+
+  // Automatically prefill whenever user session becomes available
+  useEffect(() => {
+    if (user) {
+      reset({
+        guestName: user.name,
+        email: user.email,
+        phone: user.phone,
+        specialRequest: ''
+      });
+    }
+  }, [user, reset]);
 
   // Calculate nights
   const calculateNights = () => {
@@ -156,7 +177,8 @@ export const BookingPage: React.FC = () => {
         checkOut,
         guests,
         specialRequest: guestData.specialRequest || '',
-        totalAmount
+        totalAmount,
+        userId: user?.id
       });
 
       // Immediate transition to confirmation page
@@ -184,7 +206,7 @@ export const BookingPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8">
+      <div id="booking-form" className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 scroll-mt-24">
         {/* Stepper Progress Bar */}
         <div className="mb-8">
           <div className="flex items-center justify-between relative">
@@ -532,6 +554,28 @@ export const BookingPage: React.FC = () => {
                 Change Room
               </button>
             </div>
+
+            {isAuthenticated && user ? (
+              <div className="p-3 bg-amber-50/80 border border-amber-200/80 rounded-xl flex items-center justify-between text-xs text-amber-900">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                  <span>
+                    Logged in as <strong>{user.name}</strong> ({user.email}). Guest details prefilled.
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-between text-xs text-gray-600">
+                <span>Already have an account with Aahvaanam?</span>
+                <Link
+                  to="/login"
+                  state={{ from: { pathname: '/booking' } }}
+                  className="font-bold text-gold-dark hover:underline"
+                >
+                  Sign in to prefill details & track stay →
+                </Link>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit(onGuestSubmit)} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

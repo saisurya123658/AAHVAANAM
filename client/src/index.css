@@ -43,6 +43,19 @@
     font-family: "Inter", sans-serif;
   }
 
+  /* Offset for sticky luxury navigation header */
+  section[id],
+  div[id],
+  #booking-form,
+  #amenities,
+  #rooms,
+  #gallery,
+  #location,
+  #about,
+  #contact {
+    scroll-margin-top: 5.5rem;
+  }
+
   ::selection {
     background: var(--gold);
     color: #ffffff;

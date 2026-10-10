@@ -41,9 +41,26 @@ export interface Customer {
   lastBookingStatus?: string;
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  password?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface UserSession {
+  user: Omit<User, 'password'>;
+  token: string;
+  loginTime: string;
+}
+
 export interface Booking {
   _id: string;
   bookingReference: string;
+  userId?: string;
   customer: Customer;
   room: Room;
   checkIn: string;

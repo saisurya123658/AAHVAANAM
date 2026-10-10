@@ -43,7 +43,7 @@ export const RoomsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+      <div id="booking-form" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 scroll-mt-24">
         <SearchWidget compact={false} />
       </div>
 

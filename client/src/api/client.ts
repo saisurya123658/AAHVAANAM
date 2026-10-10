@@ -40,7 +40,7 @@ export const api = axios.create({
     };
 
     try {
-      // 1. AUTHENTICATION
+      // 1. AUTHENTICATION (ADMIN & USER)
       if (url === '/auth/admin/login' && method === 'post') {
         const { email, password } = data;
         const admin = LocalStorageService.loginAdmin(email, password);
@@ -58,6 +58,42 @@ export const api = axios.create({
       if (url === '/auth/admin/logout' && method === 'post') {
         LocalStorageService.logoutAdmin();
         return ok({ message: 'Logged out successfully' });
+      }
+
+      // User Authentication
+      if (url === '/auth/user/signup' && method === 'post') {
+        const session = LocalStorageService.registerUser(data);
+        return ok({ message: 'User registered successfully', session, user: session.user }, 201);
+      }
+
+      if (url === '/auth/user/login' && method === 'post') {
+        const { email, password } = data;
+        const session = LocalStorageService.loginUser(email, password);
+        return ok({ message: 'Login successful', session, user: session.user });
+      }
+
+      if (url === '/auth/user/me' && method === 'get') {
+        const session = LocalStorageService.getUserSession();
+        return ok({ authenticated: !!session, session, user: session?.user || null });
+      }
+
+      if (url === '/auth/user/logout' && method === 'post') {
+        LocalStorageService.logoutUser();
+        return ok({ message: 'Logged out successfully' });
+      }
+
+      if (url.startsWith('/user/bookings') && method === 'get') {
+        const session = LocalStorageService.getUserSession();
+        if (!session) return err('Unauthorized', 401);
+        const userBookings = LocalStorageService.getUserBookings(session.user.id, session.user.email, session.user.phone);
+        return ok({ bookings: userBookings, total: userBookings.length });
+      }
+
+      if (url.match(/^\/user\/bookings\/[a-zA-Z0-9_-]+\/cancel$/) && method === 'post') {
+        const parts = url.split('/');
+        const id = parts[3];
+        const cancelled = LocalStorageService.cancelBooking(id, data.reason);
+        return ok({ message: 'Booking cancelled successfully', booking: cancelled });
       }
 
       // 2. SETTINGS

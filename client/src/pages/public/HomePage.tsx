@@ -435,6 +435,7 @@ export const HomePage: React.FC = () => {
                 AVAILABILITY
             ===================================================== */}
             <div
+              id="booking-form"
               className="
                 pt-10
                 sm:pt-14
@@ -442,6 +443,7 @@ export const HomePage: React.FC = () => {
                 mx-auto
                 text-left
                 animate-[fadeUp_1s_0.4s_ease-out_both]
+                scroll-mt-24
               "
             >
 
@@ -729,12 +731,14 @@ export const HomePage: React.FC = () => {
           ROOMS
       ========================================================= */}
       <section
+        id="rooms"
         className="
           py-20
           sm:py-24
           bg-[#F7F3EA]
           border-y
           border-[#C49A32]/15
+          scroll-mt-24
         "
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1021,7 +1025,7 @@ export const HomePage: React.FC = () => {
       {/* =========================================================
           GALLERY
       ========================================================= */}
-      <section className="py-20 sm:py-24 bg-[#FCFAF5]">
+      <section id="gallery" className="py-20 sm:py-24 bg-[#FCFAF5] scroll-mt-24">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -1183,6 +1187,7 @@ export const HomePage: React.FC = () => {
           LOCATION
       ========================================================= */}
       <section
+        id="location"
         className="
           py-20
           sm:py-24
@@ -1190,6 +1195,7 @@ export const HomePage: React.FC = () => {
           text-white
           relative
           overflow-hidden
+          scroll-mt-24
         "
       >
 

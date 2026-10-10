@@ -1,4 +1,4 @@
-import { Room, Booking, Settings, GalleryItem, Enquiry, AdminUser, DashboardStats } from '../types';
+import { Room, Booking, Settings, GalleryItem, Enquiry, AdminUser, DashboardStats, User, UserSession } from '../types';
 
 // Storage Keys
 export const STORAGE_KEYS = {
@@ -7,8 +7,23 @@ export const STORAGE_KEYS = {
   ADMIN: 'aahvaanam_admin',
   SETTINGS: 'aahvaanam_settings',
   GALLERY: 'aahvaanam_gallery',
-  ENQUIRIES: 'aahvaanam_enquiries'
+  ENQUIRIES: 'aahvaanam_enquiries',
+  USERS: 'aahvaanam_users',
+  USER_SESSION: 'aahvaanam_session',
+  VERSION: 'aahvaanam_version'
 } as const;
+
+// Default Seed Users (for demo testing)
+export const DEFAULT_USERS: User[] = [
+  {
+    id: 'user-001',
+    name: 'Suresh Kumar',
+    email: 'user@example.com',
+    phone: '9848011223',
+    password: 'user123',
+    createdAt: '2026-01-01T00:00:00.000Z'
+  }
+];
 
 // Default Hotel Settings
 export const DEFAULT_SETTINGS: Settings = {
@@ -355,6 +370,11 @@ export class LocalStorageService {
     if (!localStorage.getItem(STORAGE_KEYS.GALLERY)) {
       setItem(STORAGE_KEYS.GALLERY, DEFAULT_GALLERY);
     }
+
+    // Seed Users
+    if (!localStorage.getItem(STORAGE_KEYS.USERS)) {
+      setItem(STORAGE_KEYS.USERS, DEFAULT_USERS);
+    }
   }
 
   // ================= ROOMS =================
@@ -450,6 +470,7 @@ export class LocalStorageService {
     guests: number;
     specialRequest?: string;
     totalAmount?: number | null;
+    userId?: string;
   }): Booking {
     const room = this.getRoomById(data.roomId);
     if (!room) {
@@ -460,6 +481,21 @@ export class LocalStorageService {
     const isAvailable = this.isRoomAvailable(room._id, data.checkIn, data.checkOut);
     if (!isAvailable) {
       throw new Error('This room is no longer available for the selected dates. Please select another room.');
+    }
+
+    const bookings = this.getBookings();
+
+    // Prevent rapid duplicate submission (within 5 seconds for same room, dates, and phone)
+    const recentDuplicate = bookings.find(
+      (b) =>
+        b.room?._id === room._id &&
+        b.checkIn === data.checkIn &&
+        b.checkOut === data.checkOut &&
+        b.customer?.phone === data.phone &&
+        Date.now() - new Date(b.createdAt).getTime() < 5000
+    );
+    if (recentDuplicate) {
+      return recentDuplicate;
     }
 
     // Calculate total price if not provided
@@ -476,6 +512,7 @@ export class LocalStorageService {
     const newBooking: Booking = {
       _id: bookingId,
       bookingReference: reference,
+      userId: data.userId,
       customer: {
         _id: `cust-${Date.now()}`,
         name: data.guestName,
@@ -495,7 +532,6 @@ export class LocalStorageService {
       updatedAt: now
     };
 
-    const bookings = this.getBookings();
     bookings.unshift(newBooking);
     this.saveBookings(bookings);
 
@@ -794,6 +830,159 @@ export class LocalStorageService {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEYS.ADMIN);
     }
+  }
+
+  // ================= USER AUTHENTICATION & PROFILE =================
+  static getUsers(): User[] {
+    this.initialize();
+    const users = getItem<User[]>(STORAGE_KEYS.USERS, DEFAULT_USERS);
+    return Array.isArray(users) && users.length > 0 ? users : DEFAULT_USERS;
+  }
+
+  static saveUsers(users: User[]): void {
+    setItem(STORAGE_KEYS.USERS, users);
+  }
+
+  static getUserSession(): UserSession | null {
+    const session = getItem<UserSession | null>(STORAGE_KEYS.USER_SESSION, null);
+    if (!session && typeof window !== 'undefined') {
+      return getItem<UserSession | null>('aahvaanam_user_session', null);
+    }
+    return session;
+  }
+
+  static saveUserSession(session: UserSession | null): void {
+    if (session) {
+      setItem(STORAGE_KEYS.USER_SESSION, session);
+      setItem('aahvaanam_user_session', session);
+    } else if (typeof window !== 'undefined') {
+      localStorage.removeItem(STORAGE_KEYS.USER_SESSION);
+      localStorage.removeItem('aahvaanam_user_session');
+    }
+  }
+
+  static registerUser(data: {
+    name: string;
+    email: string;
+    phone: string;
+    password: string;
+  }): UserSession {
+    const cleanName = data.name.trim();
+    const cleanEmail = data.email.trim().toLowerCase();
+    const cleanPhone = data.phone.trim().replace(/[^0-9+]/g, '');
+    const cleanPassword = data.password.trim();
+
+    if (!cleanName || cleanName.length < 2) {
+      throw new Error('Please enter your full name (at least 2 characters).');
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      throw new Error('Please enter a valid email address.');
+    }
+    if (!cleanPhone || cleanPhone.length < 10) {
+      throw new Error('Please enter a valid 10-digit mobile number.');
+    }
+    if (!cleanPassword || cleanPassword.length < 6) {
+      throw new Error('Password must be at least 6 characters.');
+    }
+
+    const users = this.getUsers();
+    const existing = users.find((u) => u.email.toLowerCase() === cleanEmail);
+    if (existing) {
+      throw new Error('An account with this email address already exists. Please log in instead.');
+    }
+
+    const now = new Date().toISOString();
+    const newUser: User = {
+      id: `user-${Date.now()}-${Math.floor(100 + Math.random() * 900)}`,
+      name: cleanName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      password: cleanPassword, // In demo frontend-only localStorage
+      createdAt: now,
+      updatedAt: now
+    };
+
+    users.push(newUser);
+    this.saveUsers(users);
+
+    const session: UserSession = {
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        phone: newUser.phone,
+        createdAt: newUser.createdAt,
+        updatedAt: newUser.updatedAt
+      },
+      token: `demo-user-token-${Date.now()}`,
+      loginTime: now
+    };
+
+    this.saveUserSession(session);
+    return session;
+  }
+
+  static loginUser(email: string, password: string): UserSession {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = password.trim();
+
+    const users = this.getUsers();
+    const user = users.find((u) => u.email.toLowerCase() === cleanEmail && u.password === cleanPassword);
+
+    if (!user) {
+      throw new Error('Invalid email or password. Please verify your credentials or create a new account.');
+    }
+
+    const session: UserSession = {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      },
+      token: `demo-user-token-${Date.now()}`,
+      loginTime: new Date().toISOString()
+    };
+
+    this.saveUserSession(session);
+    return session;
+  }
+
+  static logoutUser(): void {
+    this.saveUserSession(null);
+  }
+
+  static getUserBookings(userId: string, email?: string, phone?: string): Booking[] {
+    const bookings = this.getBookings();
+    const cleanEmail = email?.trim().toLowerCase();
+    const cleanPhone = phone?.trim();
+
+    return bookings.filter((b) => {
+      if (b.userId && b.userId === userId) return true;
+      if (cleanEmail && b.customer?.email?.toLowerCase() === cleanEmail) return true;
+      if (cleanPhone && b.customer?.phone === cleanPhone) return true;
+      return false;
+    });
+  }
+
+  static cancelBooking(bookingId: string, reason?: string): Booking {
+    const booking = this.getBookingById(bookingId);
+    if (!booking) {
+      throw new Error('Booking not found.');
+    }
+    if (booking.status === 'CANCELLED') {
+      return booking;
+    }
+
+    return this.updateBooking(booking._id, {
+      status: 'CANCELLED',
+      specialRequest: reason
+        ? `${booking.specialRequest ? booking.specialRequest + ' | ' : ''}Cancellation Note: ${reason}`
+        : booking.specialRequest
+    });
   }
 
   // ================= HOTEL SETTINGS =================

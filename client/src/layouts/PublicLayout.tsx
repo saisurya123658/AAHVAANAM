@@ -8,7 +8,7 @@ export const PublicLayout: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-ivory">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pb-16 sm:pb-0">
         <Outlet />
       </main>
       <Footer />

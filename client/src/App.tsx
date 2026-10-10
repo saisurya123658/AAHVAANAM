@@ -14,6 +14,9 @@ import { GalleryPage } from './pages/public/GalleryPage';
 import { AboutPage } from './pages/public/AboutPage';
 import { LocationPage } from './pages/public/LocationPage';
 import { ContactPage } from './pages/public/ContactPage';
+import { LoginPage } from './pages/public/LoginPage';
+import { SignupPage } from './pages/public/SignupPage';
+import { MyBookingsPage } from './pages/public/MyBookingsPage';
 
 // Admin Pages
 import { AdminLoginPage } from './pages/admin/AdminLoginPage';
@@ -43,6 +46,9 @@ export const App: React.FC = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/location" element={<LocationPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/my-bookings" element={<MyBookingsPage />} />
       </Route>
 
       {/* Admin Login */}
