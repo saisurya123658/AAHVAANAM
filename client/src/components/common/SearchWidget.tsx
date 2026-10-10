@@ -461,3 +461,4 @@ export const SearchWidget: React.FC<SearchWidgetProps> = ({
     </div>
   );
 };
+

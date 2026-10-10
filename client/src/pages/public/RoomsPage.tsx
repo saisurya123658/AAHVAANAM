@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../../api/client';
 import { Room } from '../../types';
 import { LocalStorageService } from '../../services/localStorageService';
 import { SearchWidget } from '../../components/common/SearchWidget';

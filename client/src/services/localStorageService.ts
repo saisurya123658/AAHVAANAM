@@ -1,4 +1,4 @@
-import { Room, Booking, Settings, GalleryItem, Enquiry, AdminUser, DashboardStats, User, UserSession } from '../types';
+﻿import { Room, Booking, Settings, GalleryItem, Enquiry, AdminUser, DashboardStats, User, UserSession } from '../types';
 
 // Storage Keys
 export const STORAGE_KEYS = {
@@ -27,7 +27,7 @@ export const DEFAULT_USERS: User[] = [
 
 // Default Hotel Settings
 export const DEFAULT_SETTINGS: Settings = {
-  hotelName: 'Aahvaanam – Luxury Rooms',
+  hotelName: 'Aahvaanam ΓÇô Luxury Rooms',
   phone: '+91 96402 89999',
   whatsappNumber: '919640289999',
   location: 'Opp: Kurnool New Bus Stand, Kurnool City, Andhra Pradesh, India',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Phone,
@@ -317,7 +317,7 @@ export const HomePage: React.FC = () => {
                   drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]
                 "
               >
-                “Spacious. Comfortable. Clean. Feel at Home.”
+                ΓÇ£Spacious. Comfortable. Clean. Feel at Home.ΓÇ¥
               </p>
 
               <p
@@ -1292,7 +1292,7 @@ export const HomePage: React.FC = () => {
               <div className="space-y-3 pt-2">
 
                 {[
-                  'Right opposite Kurnool New Bus Stand — zero travel hassle.',
+                  'Right opposite Kurnool New Bus Stand ΓÇö zero travel hassle.',
                   'Auto stands, food courts, and medical stores within immediate reach.',
                   '24/7 check-in assistance and welcoming staff.',
                 ].map((text, index) => (
@@ -1500,7 +1500,7 @@ export const HomePage: React.FC = () => {
                 mt-5
               "
             >
-              “Guest reviews will appear here.”
+              ΓÇ£Guest reviews will appear here.ΓÇ¥
             </p>
 
             <p
@@ -1512,7 +1512,7 @@ export const HomePage: React.FC = () => {
               "
             >
               We look forward to welcoming you to
-              Aahvaanam – Luxury Rooms. Share your stay
+              Aahvaanam ΓÇô Luxury Rooms. Share your stay
               experience with our front desk!
             </p>
           </div>
